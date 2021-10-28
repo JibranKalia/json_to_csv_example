@@ -1,10 +1,9 @@
 require 'json'
 require 'csv'
 
+# file_path of json with data
 file_string = File.read('transactions.json')
 data_hash = JSON.parse(file_string)
-
-all_bank_transactions = [];
 
 class BankTransaction
   def initialize(bank_account_name, reference)
@@ -38,7 +37,6 @@ class BankTransaction
 end
   
 class BankLineItem
-
   attr_accessor :line_item_id, :account_code, :description, :line_amount
 
   def initialize(line_item_id, account_code, description, line_amount)
@@ -49,16 +47,19 @@ class BankLineItem
   end
 end
 
+# array to hold bank_transaction objects
+all_bank_transactions = [];
 
+# parse raw_hash into BankTransaction and BankLineItem objects
 data_hash['BankTransactions'].each do |transaction|
   bank_transaction = BankTransaction.create_from_raw_data(transaction)
   bank_transaction.add_line_items(transaction['LineItems'])
   all_bank_transactions << bank_transaction
 end
 
-all_bank_transactions
-
+# Generate CSV string
 csv_string = CSV.generate do |csv|
+  # Headers
   csv << ["LineItemId", "AccountCode", "Description", "LineAmount", "BankAccountName", "Reference"]
 
   all_bank_transactions.each do |transaction|
@@ -66,4 +67,5 @@ csv_string = CSV.generate do |csv|
   end
 end
 
+# Print CSV to STDOUT
 puts csv_string

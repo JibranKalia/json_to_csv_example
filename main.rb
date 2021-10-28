@@ -6,6 +6,8 @@ file_string = File.read('transactions.json')
 data_hash = JSON.parse(file_string)
 
 class BankTransaction
+  attr_accessor :bank_account_name, :reference
+
   def initialize(bank_account_name, reference)
     @bank_account_name = bank_account_name
     @reference = reference
@@ -25,7 +27,7 @@ class BankTransaction
 
   def csv_lines
     @line_items.map do |line_item|
-      [line_item.line_item_id, line_item.account_code, line_item.description, line_item.line_amount]
+      [line_item.line_item_id, line_item.account_code, line_item.description, line_item.line_amount, bank_account_name, reference]
     end
   end
 

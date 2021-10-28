@@ -1,6 +1,6 @@
 # Parse JSON to CSV format
 
-I have used a complex json from Xero's Bank Transaction API. 
+I have used a complex json from Xero's Bank Transaction API to demonstrate this. The source of that json is with some modifications:
 
 https://developer.xero.com/documentation/api/accounting/banktransactions#post-banktransactions
 

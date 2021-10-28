@@ -13,7 +13,7 @@ LineItemId,AccountCode,Description,LineAmount,BankAccountName,Reference
 
 ## Usage
 ```
-ruby main.rb
+ruby main.rb > output.csv
 ```
 
 
